@@ -12,17 +12,25 @@ class RayCasting:
         self.__game = game
         self.ray_casting_result = list()
         self.objects_to_render = list()
-        self.textures = self.__game.object_renderer.wall_texture
+        self.textures = self.__game.object_render.wall_texture
 
-    def get_objects_to_render(self) -> None:
+    def __get_objects_to_render(self) -> None:
         self.objects_to_render = list()
         for ray, values in enumerate(self.ray_casting_result):
+            depth, proj_height, texture, offset = values
+            wall_column = self.textures[texture].subsurface(
+                offset * (TEXTURE_SIZE - SCALE), 0, SCALE, TEXTURE_SIZE
+            )
+            wall_column = pg.transform.scale(wall_column, (SCALE, proj_height))
+            wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2)
 
+            self.objects_to_render.append((depth, wall_column, wall_pos))
 
     def __ray_cast(self) -> None:
         self.ray_casting_result.clear()
-        texture_vert, texture_hor = None, None
         ox, oy = self.__game.player.pos
+        texture_vert, texture_hor = 1, 1
+
         x_map, y_map = self.__game.player.map_pos
         ray_angle = self.__game.player.angle - HALF_FOV + 0.0001
         for ray in range(NUM_RAYS):
@@ -42,6 +50,7 @@ class RayCasting:
                 tile_hor = int(x_hor), int(y_hor)
                 if tile_hor in self.__game.map.world_map:
                     texture_hor = self.__game.map.world_map[tile_hor]
+                    break
                 x_hor += dx
                 y_hor += dy
                 depth_hor += delta_depth
@@ -59,6 +68,7 @@ class RayCasting:
                 tile_vert = int(x_vert), int(y_vert)
                 if tile_vert in self.__game.map.world_map:
                     texture_vert = self.__game.map.world_map[tile_vert]
+                    break
                 x_vert += dx
                 y_vert += dy
                 depth_vert += delta_depth
@@ -79,7 +89,6 @@ class RayCasting:
             # remove the lag effect
             depth *= math.cos(self.__game.player.angle - ray_angle)
 
-
             # projection
             proj_height = SCREEN_DIST / (depth + 0.0001)
 
@@ -94,3 +103,4 @@ class RayCasting:
 
     def update(self) -> None:
         self.__ray_cast()
+        self.__get_objects_to_render()

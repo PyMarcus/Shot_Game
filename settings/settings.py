@@ -5,7 +5,7 @@ import math
 
 # screen settings
 
-RES = WIDTH, HEIGHT = 1600, 900
+RES = WIDTH, HEIGHT = 700, 500
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 FPS: int = 100
@@ -27,7 +27,6 @@ MAX_DEPTH = 20
 # 3d projection:
 SCREEN_DIST = HALF_WIDTH / math.tan(HALF_FOV)
 SCALE = WIDTH // NUM_RAYS
-
 
 # texture:
 

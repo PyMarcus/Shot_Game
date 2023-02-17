@@ -26,6 +26,14 @@ class Game:
         self.__new_game()
 
     @property
+    def ray_casting(self) -> Any:
+        return self.__ray_casting
+
+    @property
+    def object_render(self) -> Any:
+        return self.__object_render
+
+    @property
     def delta_time(self) -> Any:
         return self.__delta_time
 
@@ -69,6 +77,7 @@ class Game:
 
     def __draw(self) -> None:
         self.__screen.fill('black')
+        self.object_render.draw()
         # self.__map.draw()
         # self.__player.draw()
 

@@ -1,8 +1,7 @@
 import pygame as pg
 from pygame import Surface
 from settings import *
-from typing import TypeVar
-
+from typing import TypeVar, Any, Dict
 
 Game = TypeVar("Game")
 
@@ -18,11 +17,19 @@ class ObjectRenderer:
         texture = pg.image.load(path).convert_alpha()
         return pg.transform.scale(texture, res)
 
-    def __load_wall_textures(self):
+    def draw(self) -> None:
+        self.__render_game_objects()
+
+    def __render_game_objects(self) -> None:
+        list_objects = self.__game.ray_casting.objects_to_render
+        for depth, image, pos in list_objects:
+            self.screen.blit(image, pos)
+
+    def __load_wall_textures(self) -> Dict[int, Any]:
         return {
-            1: self.__get_texture("../resources/textures/1.png"),
-            2: self.__get_texture("../resources/textures/2.png"),
-            3: self.__get_texture("../resources/textures/3.png"),
-            4: self.__get_texture("../resources/textures/4.png"),
-            5: self.__get_texture("../resources/textures/5.png")
+            1: self.__get_texture("resources/textures/1.png"),
+            2: self.__get_texture("resources/textures/2.png"),
+            3: self.__get_texture("resources/textures/3.png"),
+            4: self.__get_texture("resources/textures/4.png"),
+            5: self.__get_texture("resources/textures/5.png")
         }
