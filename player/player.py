@@ -69,9 +69,10 @@ class Player:
         return (x, y) not in self.__game.map.world_map
 
     def __check_wall_collision(self, dx, dy):
-        if self.__check_wall(int(self.__x + dx), int(self.__y)):
+        scale = PLAYER_SIZE_SCALE / self.__game.delta_time  # best graphical when is near of the wall
+        if self.__check_wall(int(self.__x + dx * scale), int(self.__y)):
             self.__x += dx
-        if self.__check_wall(int(self.__x), int(self.__y + dy)):
+        if self.__check_wall(int(self.__x), int(self.__y + dy * scale)):
             self.__y += dy
 
     def update(self) -> None:
