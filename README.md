@@ -40,5 +40,8 @@ https://user-images.githubusercontent.com/88283829/219900590-c107c6a4-873f-4340-
 https://user-images.githubusercontent.com/88283829/219901193-b1add813-1c53-4c50-90e8-be404c7103ff.mp4
 
 
+### Load npc in the map:
+
+![image](https://user-images.githubusercontent.com/88283829/219903605-aad93157-f80e-46ee-9bb7-278708ed99db.png)
 
 
