@@ -12,6 +12,7 @@ class Player:
         self.__game = game
         self.__x, self.__y = PLAYER_POS
         self.__angle = PLAYER_ANGLE
+        self.shot = False
 
     @property
     def x(self) -> float:
@@ -101,4 +102,6 @@ class Player:
         self.__mouse_control()
 
     def single_fire_event(self, event) -> None:
-        pass
+        if event.type == pg.MOUSEBUTTONDOWN:
+            if event.button == 1 and not self.shot:
+                self.shot = True

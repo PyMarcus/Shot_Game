@@ -9,6 +9,7 @@ from raycasting import RayCasting
 from object_renderer import ObjectRenderer
 from sprites import Sprite, AnimatedSprite
 from weapons import Weapon
+from sound_management import Sound
 
 
 class Game:
@@ -68,6 +69,7 @@ class Game:
         self.__sprite_objects = Sprite(self)
         self.__animate_sprite_objects = AnimatedSprite(self)
         self.__weapon = Weapon(self)
+        self.__sound = Sound(self)
 
     def __update(self) -> None:
         """
@@ -96,6 +98,8 @@ class Game:
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
                 sys.exit(0)
+            if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                self.__sound.gun_sound()
             self.__player.single_fire_event(event)
 
     def run(self) -> None:

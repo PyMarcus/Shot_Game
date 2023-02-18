@@ -28,4 +28,20 @@ class Weapon(AnimatedSprite):
         self.game.screen.blit(self.images[0], self.weapon_pos)
 
     def update(self) -> None:
-        pass
+        self.check_animation_time()
+        self.animate_shot()
+
+    def animate_shot(self) -> None:
+        if self.reloading:
+            self.game.player.shot = False
+            if self.animation_trigger:
+                self.images.rotate(-1)
+                self.image = self.images[0]
+                self.frame_counter += 1
+                if self.frame_counter == self.num_images:
+                    self.reloading = False
+                    self.frame_counter = 0
+        else:
+            if self.game.player.shot:
+                #sound = Sound(self.game)
+                self.reloading = True

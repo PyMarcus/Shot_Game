@@ -91,15 +91,15 @@ class AnimatedSprite(Sprite):
 
     def update(self):
         super().update()
-        self.__check_animation_time()
-        self.__animate(self.images)
+        self.check_animation_time()
+        self.animate(self.images)
 
-    def __animate(self, images):
+    def animate(self, images):
         if self.animation_trigger:
             images.rotate(-1)
             self.image = images[0]
 
-    def __check_animation_time(self):
+    def check_animation_time(self):
         self.animation_trigger = False
         time_now = pg.time.get_ticks()
         if time_now - self.animation_time_prev > self.animation_time:
