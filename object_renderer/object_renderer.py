@@ -13,6 +13,7 @@ class ObjectRenderer:
         self.wall_texture = self.__load_wall_textures()
         self.sky_image = self.__get_texture('resources/textures/sol.png', (WIDTH, HALF_HEIGHT))
         self.sky_offset = 0
+        self.win_image = self.__get_texture('resources/textures/win.png', RES)
 
     @staticmethod
     def __get_texture(path: str, res=(TEXTURE_SIZE, TEXTURE_SIZE)) -> Surface:
@@ -22,6 +23,9 @@ class ObjectRenderer:
     def draw(self) -> None:
         self.__draw_background()
         self.__render_game_objects()
+
+    def win(self):
+        self.screen.blit(self.win_image, (0, 0))
 
     def __draw_background(self) -> None:
         self.sky_offset = (self.sky_offset + 4.5 * self.__game.player.rel) % WIDTH

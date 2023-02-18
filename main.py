@@ -1,6 +1,8 @@
 import pygame as pg
 import sys
 from pygame import Surface
+
+from object_handler import ObjectHandler
 from settings import *
 from map import Map
 from typing import Any
@@ -25,7 +27,7 @@ class Game:
         self.__map = None
         self.__player = None
         self.__ray_casting = None
-        self.____object_render = None
+        self.__object_render = None
         self.__delta_time: Any = 1
         self.__new_game()
 
@@ -70,6 +72,10 @@ class Game:
         self.__animate_sprite_objects = AnimatedSprite(self)
         self.__weapon = Weapon(self)
         self.__sound = Sound(self)
+        self.__handle_objects = ObjectHandler(self)
+
+    def new_game(self) -> Any:
+        return self.__new_game()
 
     def __update(self) -> None:
         """
@@ -82,6 +88,7 @@ class Game:
         #self.__sprite_objects.update()
         self.__animate_sprite_objects.update()
         self.__weapon.update()
+        self.__handle_objects.update()
         pg.display.flip()
         self.__delta_time = self.__clock.tick(FPS)
         pg.display.set_caption(f"{self.__clock.get_fps():.1f}")

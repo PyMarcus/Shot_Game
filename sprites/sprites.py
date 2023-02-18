@@ -48,7 +48,7 @@ class Sprite:
     def image(self, new_image: Any) -> None:
         self.__image = new_image
 
-    def __get_sprite(self) -> None:
+    def get_sprite(self) -> None:
         dx = self.x - self.__player.x
         dy = self.y - self.__player.y
         self.dx, self.dy = dx, dy
@@ -76,7 +76,7 @@ class Sprite:
         self.__game.ray_casting.objects_to_render.append((self.norm_dist, image, pos))
 
     def update(self) -> None:
-        self.__get_sprite()
+        self.get_sprite()
 
 
 class AnimatedSprite(Sprite):
@@ -85,7 +85,7 @@ class AnimatedSprite(Sprite):
         super().__init__(game, path, pos, scale, shift)
         self.animation_time = animation_time
         self.path = path.rsplit('/', 1)[0]
-        self.images = self.__get_images(self.path)
+        self.images = self.get_images(self.path)
         self.animation_time_prev = pg.time.get_ticks()
         self.animation_trigger = False
 
@@ -107,7 +107,7 @@ class AnimatedSprite(Sprite):
             self.animation_trigger = True
 
     @staticmethod
-    def __get_images(path):
+    def get_images(path):
         images = deque()
         for file_name in os.listdir(path):
             if os.path.isfile(os.path.join(path, file_name)):
