@@ -23,3 +23,4 @@ A 2d game based in doom
 
 https://user-images.githubusercontent.com/88283829/219551489-99e38cd1-8ef0-42fc-a19e-4119f37344e8.mp4
 
+![image](https://user-images.githubusercontent.com/88283829/219873445-636e4e37-ecaa-4350-b453-eb3e9a6da9ac.png)
