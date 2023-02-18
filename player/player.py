@@ -1,4 +1,4 @@
-from typing import TypeVar
+from typing import TypeVar, Any
 import pygame as pg
 import math
 from settings import *
@@ -9,6 +9,7 @@ Game = TypeVar("Game")
 
 class Player:
     def __init__(self, game: Game) -> None:
+        self.rel = None
         self.__game = game
         self.__x, self.__y = PLAYER_POS
         self.__angle = PLAYER_ANGLE
@@ -16,6 +17,10 @@ class Player:
     @property
     def angle(self) -> float:
         return self.__angle
+
+    @angle.setter
+    def angle(self, new_value: Any) -> None:
+        self.__angle = new_value
 
     @property
     def pos(self) -> Tuple[float, float]:
@@ -68,12 +73,22 @@ class Player:
     def __check_wall(self, x: float, y: float) -> bool:
         return (x, y) not in self.__game.map.world_map
 
-    def __check_wall_collision(self, dx, dy):
-        scale = PLAYER_SIZE_SCALE / self.__game.delta_time  # best graphical when is near of the wall
+    def __check_wall_collision(self, dx, dy) -> None:
+        # best graphical when is near of the wall
+        scale = PLAYER_SIZE_SCALE / self.__game.delta_time if PLAYER_SIZE_SCALE / self.__game.delta_time > 0 else 5
         if self.__check_wall(int(self.__x + dx * scale), int(self.__y)):
             self.__x += dx
         if self.__check_wall(int(self.__x), int(self.__y + dy * scale)):
             self.__y += dy
 
+    def __mouse_control(self) -> None:
+        mx, my = pg.mouse.get_pos()
+        if mx < MOUSE_BORDER_LEFT or mx > MOUSE_BORDER_RIGHT:
+            pg.mouse.set_pos([HALF_WIDTH, HALF_HEIGHT])
+        self.rel = pg.mouse.get_rel()[0]
+        self.rel = max(-MOUSE_MAX_REL, min(MOUSE_MAX_REL, self.rel))
+        self.angle += self.rel * MOUSE_SENSITIVITY * self.__game.delta_time
+
     def update(self) -> None:
         self.__movement()
+        self.__mouse_control()

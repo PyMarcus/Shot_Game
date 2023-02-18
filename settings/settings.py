@@ -5,10 +5,10 @@ import math
 
 # screen settings
 
-RES = WIDTH, HEIGHT = 700, 500
+RES = WIDTH, HEIGHT = 1600, 900
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
-FPS: int = 100
+FPS: int = 0
 
 # player settings:
 PLAYER_POS: Tuple[float, float] = 1.5, 5
@@ -32,6 +32,10 @@ SCALE = WIDTH // NUM_RAYS
 # texture:
 TEXTURE_SIZE = 256
 HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
+FLOOR_COLOR = (30, 30, 30)
 
 # mouse settings:
-
+MOUSE_SENSITIVITY = 0.0003
+MOUSE_MAX_REL = 40
+MOUSE_BORDER_LEFT = 100
+MOUSE_BORDER_RIGHT = WIDTH - MOUSE_BORDER_LEFT
