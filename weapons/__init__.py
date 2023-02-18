@@ -1,0 +1,1 @@
+from .weapons import Weapon

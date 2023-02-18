@@ -1,6 +1,5 @@
 from typing import TypeVar, Any
 import pygame as pg
-import math
 from settings import *
 
 
@@ -13,6 +12,14 @@ class Player:
         self.__game = game
         self.__x, self.__y = PLAYER_POS
         self.__angle = PLAYER_ANGLE
+
+    @property
+    def x(self) -> float:
+        return self.__x
+
+    @property
+    def y(self) -> float:
+        return self.__y
 
     @property
     def angle(self) -> float:
@@ -92,3 +99,6 @@ class Player:
     def update(self) -> None:
         self.__movement()
         self.__mouse_control()
+
+    def single_fire_event(self, event) -> None:
+        pass
